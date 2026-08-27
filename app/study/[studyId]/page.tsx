@@ -163,6 +163,9 @@ const [labelFilters, setLabelFilters] = useState({
 
   const [isMobile, setIsMobile] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [displayedImageUrl, setDisplayedImageUrl] = useState("")
+  const [displayedSlice, setDisplayedSlice] = useState(0)
+
   /* END [3.3] STATE :: CORE UI */
 
   useEffect(() => {
@@ -223,6 +226,24 @@ const imageUrl = useMemo(() => {
   return buildSliceUrl(study, slice)
 }, [study, slice])
 
+useEffect(() => {
+  if (!imageUrl) return
+
+  const requestedSlice = slice
+  const nextImg = new Image()
+
+  nextImg.onload = () => {
+    setDisplayedImageUrl(imageUrl)
+    setDisplayedSlice(requestedSlice)
+  }
+
+  nextImg.src = imageUrl
+
+  return () => {
+    nextImg.onload = null
+  }
+}, [imageUrl, slice])
+
 
 const labelById = useMemo(() => {
   const m = new Map<string, string>()
@@ -252,9 +273,17 @@ function isStructureVisible(structureId: string) {
 }
 
 const annotations = useMemo(() => {
-  const arr = annotationsBySlice[String(slice)] ?? []
-  return arr.filter((a) => isStructureVisible(a.structureId))
-}, [annotationsBySlice, slice, labelFilters, categoryById])
+  const arr = annotationsBySlice[String(displayedSlice)] ?? []
+
+  return arr.filter((a) =>
+    isStructureVisible(a.structureId)
+  )
+}, [
+  annotationsBySlice,
+  displayedSlice,
+  labelFilters,
+  categoryById,
+])
 
 const callouts: CalloutPlaced[] = useMemo(() => {
   const g = geom
@@ -1148,14 +1177,14 @@ onPointerCancel={onPointerCancel}
             padding: '6px 8px',
           }}
         >
-          Corte {slice + 1} / {TOTAL_SLICES}
+          Corte {displayedSlice + 1} / {TOTAL_SLICES}
         </div>
 
         {/* [3.30.2.3] Viewer :: image */}
         
  <img
   ref={imgRef}
-  src={imageUrl}
+  src={displayedImageUrl || imageUrl}
   alt={study?.title ?? "Imagen del estudio"}
   draggable={false}
   className="viewerImg"
