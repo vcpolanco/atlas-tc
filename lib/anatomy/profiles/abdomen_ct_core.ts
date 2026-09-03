@@ -33,7 +33,7 @@ const ABDOMEN_STRUCTURES: AbdomenStructure[] = [
 
   { id: "aorta", labelEs: "Aorta abdominal", side: "M", category: "artery" },
 
-  { id: "ivc", labelEs: "VCI", side: "M", category: "vein" },
+  { id: "ivc", labelEs: "Vena Cava Inferior", side: "M", category: "vein" },
 
   { id: "portal_vein", labelEs: "Vena porta", side: "M", category: "vein" },
 
@@ -82,6 +82,33 @@ const ABDOMEN_STRUCTURES: AbdomenStructure[] = [
   { id: "seminal_vesicle_r", labelEs: "Vesícula seminal derecha", side: "R", category: "organ" },
 
   { id: "seminal_vesicle_l", labelEs: "Vesícula seminal izquierda", side: "L", category: "organ" },
+
+  // =====================================================
+// VASCULAR - ADDITIONS
+// =====================================================
+
+{ id: "celiac_trunk", labelEs: "Tronco celíaco", side: "M", category: "artery" },
+
+{ id: "sma", labelEs: "Arteria mesentérica superior", side: "M", category: "artery" },
+
+{ id: "renal_artery_r", labelEs: "Arteria renal derecha", side: "R", category: "artery" },
+
+{ id: "renal_artery_l", labelEs: "Arteria renal izquierda", side: "L", category: "artery" },
+
+{ id: "renal_vein_r", labelEs: "Vena renal derecha", side: "R", category: "vein" },
+
+{ id: "renal_vein_l", labelEs: "Vena renal izquierda", side: "L", category: "vein" },
+
+{ id: "splenic_vein", labelEs: "Vena esplénica", side: "L", category: "vein" },
+// =====================================================
+// ORGANS - ADDITIONS
+// =====================================================
+
+{ id: "adrenal_r", labelEs: "Glándula suprarrenal derecha", side: "R", category: "organ" },
+
+{ id: "adrenal_l", labelEs: "Glándula suprarrenal izquierda", side: "L", category: "organ" },
+
+{ id: "duodenum", labelEs: "Duodeno", side: "M", category: "organ" },
 ]
 
 export const ABDOMEN_CT_CORE_PROFILE = {
